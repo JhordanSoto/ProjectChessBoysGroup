@@ -3,18 +3,14 @@ package chess;
 public class ChessBoard {
     private Piece[][] board;
     static final int CHESSBOARD_SIZE = 8;
-    static final int SOURCE_ROW_BLACK_PAWNS = 6;
-    static final int SOURCE_ROW_WHITE_PAWNS = 1;
-    static final int SOURCE_ROW_BLACK_NOT_PAWNS = 7;
-    static final int SOURCE_ROW_WHITE_NOT_PAWNS = 0;
-    static final int SOURCE_COL_LEFT_ROOKS = 0;
-    static final int SOURCE_COL_RIGHT_ROOKS = 7;
-    static final int SOURCE_COL_LEFT_HORSES = 1;
-    static final int SOURCE_COL_RIGHT_HORSES = 6;
-    static final int SOURCE_COL_LEFT_BISHOPS = 2;
-    static final int SOURCE_COL_RIGHT_BISHOPS = 5;
-    static final int SOURCE_COL_QUEENS = 3;
-    static final int SOURCE_COL_KINGS = 4;
+    static final int POSITION_ZERO = 0;
+    static final int POSITION_ONE = 1;
+    static final int POSITION_TWO = 2;
+    static final int POSITION_THREE = 3;
+    static final int POSITION_FOUR = 4;
+    static final int POSITION_FIVE = 5;
+    static final int POSITION_SIX = 6;
+    static final int POSITION_SEVEN = 7;
 
     public ChessBoard() {
         board = new  Piece[CHESSBOARD_SIZE][CHESSBOARD_SIZE];
@@ -59,58 +55,58 @@ public class ChessBoard {
     }
 
     private void createPawns() {
-        for (int icol = 0; icol < CHESSBOARD_SIZE; icol++) {
-            Position posWhite = new Position(icol, SOURCE_ROW_BLACK_PAWNS);
-            board[icol][SOURCE_ROW_BLACK_PAWNS] = new Pawn(Color.BLACK, posWhite);
-            Position posBlack = new Position(icol, SOURCE_ROW_WHITE_PAWNS);
-            board[icol][SOURCE_ROW_WHITE_PAWNS] = new Pawn(Color.WHITE, posBlack);
+        for (int row = 0; row < CHESSBOARD_SIZE; row++) {
+            Position posBlack = new Position(POSITION_ONE, row);
+            board[POSITION_ONE][row] = new Pawn(Color.BLACK, posBlack);
+            Position posWhite = new Position(POSITION_SIX, row);
+            board[POSITION_SIX][row] = new Pawn(Color.WHITE, posWhite);
         }
     }
 
     private void createRooks() {
-        Position posBLRook = new Position(SOURCE_COL_LEFT_ROOKS, SOURCE_ROW_BLACK_NOT_PAWNS);
-        Position posBRRook = new Position(SOURCE_COL_RIGHT_ROOKS, SOURCE_ROW_BLACK_NOT_PAWNS);
-        Position posWLRook = new Position(SOURCE_COL_LEFT_ROOKS, SOURCE_ROW_WHITE_NOT_PAWNS);
-        Position posWRRook = new Position(SOURCE_COL_RIGHT_ROOKS, SOURCE_ROW_WHITE_NOT_PAWNS);
-        board[SOURCE_COL_LEFT_ROOKS][SOURCE_ROW_BLACK_NOT_PAWNS] = new Rook(Color.BLACK, posBLRook, this);
-        board[SOURCE_COL_RIGHT_ROOKS][SOURCE_ROW_BLACK_NOT_PAWNS] = new Rook(Color.BLACK, posBRRook, this);
-        board[SOURCE_COL_LEFT_ROOKS][SOURCE_ROW_WHITE_NOT_PAWNS] = new Rook(Color.WHITE, posWLRook, this);
-        board[SOURCE_COL_RIGHT_ROOKS][SOURCE_ROW_WHITE_NOT_PAWNS] = new Rook(Color.WHITE, posWRRook, this);
+        Position posBLRook = new Position(POSITION_ZERO, POSITION_ZERO);
+        Position posBRRook = new Position(POSITION_ZERO, POSITION_SEVEN);
+        Position posWLRook = new Position(POSITION_SEVEN, POSITION_ZERO);
+        Position posWRRook = new Position(POSITION_SEVEN, POSITION_SEVEN);
+        board[POSITION_ZERO][POSITION_ZERO] = new Rook(Color.BLACK, posBLRook, this);
+        board[POSITION_ZERO][POSITION_SEVEN] = new Rook(Color.BLACK, posBRRook, this);
+        board[POSITION_SEVEN][POSITION_ZERO] = new Rook(Color.WHITE, posWLRook, this);
+        board[POSITION_SEVEN][POSITION_SEVEN] = new Rook(Color.WHITE, posWRRook, this);
     }
 
     private void createHorses() {
-        Position posBLHorse = new Position(SOURCE_COL_LEFT_HORSES, SOURCE_ROW_BLACK_NOT_PAWNS);
-        Position posBRHorse = new Position(SOURCE_COL_RIGHT_HORSES, SOURCE_ROW_BLACK_NOT_PAWNS);
-        Position posWLHorse = new Position(SOURCE_COL_LEFT_HORSES, SOURCE_ROW_WHITE_NOT_PAWNS);
-        Position posWRHorse = new Position(SOURCE_COL_RIGHT_HORSES, SOURCE_ROW_WHITE_NOT_PAWNS);
-        board[SOURCE_COL_LEFT_HORSES][SOURCE_ROW_BLACK_NOT_PAWNS] = new Horse(Color.BLACK, posBLHorse);
-        board[SOURCE_COL_RIGHT_HORSES][SOURCE_ROW_BLACK_NOT_PAWNS] = new Horse(Color.BLACK, posBRHorse);
-        board[SOURCE_COL_LEFT_HORSES][SOURCE_ROW_WHITE_NOT_PAWNS] = new Horse(Color.WHITE, posWLHorse);
-        board[SOURCE_COL_RIGHT_HORSES][SOURCE_ROW_WHITE_NOT_PAWNS] = new Horse(Color.WHITE, posWRHorse);
+        Position posBLHorse = new Position(POSITION_ZERO, POSITION_ONE);
+        Position posBRHorse = new Position(POSITION_ZERO, POSITION_SIX);
+        Position posWLHorse = new Position(POSITION_SEVEN, POSITION_ONE);
+        Position posWRHorse = new Position(POSITION_SEVEN, POSITION_SIX);
+        board[POSITION_ZERO][POSITION_ONE] = new Horse(Color.BLACK, posBLHorse, this);
+        board[POSITION_ZERO][POSITION_SIX] = new Horse(Color.BLACK, posBRHorse, this);
+        board[POSITION_SEVEN][POSITION_ONE] = new Horse(Color.WHITE, posWLHorse, this);
+        board[POSITION_SEVEN][POSITION_SIX] = new Horse(Color.WHITE, posWRHorse, this);
     }
 
     private void createBishops() {
-        Position posBLBishop = new Position(SOURCE_COL_LEFT_BISHOPS, SOURCE_ROW_BLACK_NOT_PAWNS);
-        Position posBRBishop = new Position(SOURCE_COL_RIGHT_BISHOPS, SOURCE_ROW_BLACK_NOT_PAWNS);
-        Position posWLBishop = new Position(SOURCE_COL_LEFT_BISHOPS, SOURCE_ROW_WHITE_NOT_PAWNS);
-        Position posWRBishop = new Position(SOURCE_COL_RIGHT_BISHOPS, SOURCE_ROW_WHITE_NOT_PAWNS);
-        board[SOURCE_COL_LEFT_BISHOPS][SOURCE_ROW_BLACK_NOT_PAWNS] = new Bishop(Color.BLACK, posBLBishop, this);
-        board[SOURCE_COL_RIGHT_BISHOPS][SOURCE_ROW_BLACK_NOT_PAWNS] = new Bishop(Color.BLACK, posBRBishop, this);
-        board[SOURCE_COL_LEFT_BISHOPS][SOURCE_ROW_WHITE_NOT_PAWNS] = new Bishop(Color.WHITE, posWLBishop, this);
-        board[SOURCE_COL_RIGHT_BISHOPS][SOURCE_ROW_WHITE_NOT_PAWNS] = new Bishop(Color.WHITE, posWRBishop, this);
+        Position posBLBishop = new Position(POSITION_ZERO, POSITION_TWO);
+        Position posBRBishop = new Position(POSITION_ZERO, POSITION_FIVE);
+        Position posWLBishop = new Position(POSITION_SEVEN, POSITION_TWO);
+        Position posWRBishop = new Position(POSITION_SEVEN, POSITION_FIVE);
+        board[POSITION_ZERO][POSITION_TWO] = new Bishop(Color.BLACK, posBLBishop, this);
+        board[POSITION_ZERO][POSITION_FIVE] = new Bishop(Color.BLACK, posBRBishop, this);
+        board[POSITION_SEVEN][POSITION_TWO] = new Bishop(Color.WHITE, posWLBishop, this);
+        board[POSITION_SEVEN][POSITION_FIVE] = new Bishop(Color.WHITE, posWRBishop, this);
     }
 
     private void createQueens() {
-        Position posBQueen = new Position(SOURCE_COL_QUEENS, SOURCE_ROW_BLACK_NOT_PAWNS);
-        Position posWQueen = new Position(SOURCE_COL_QUEENS, SOURCE_ROW_WHITE_NOT_PAWNS);
-        board[SOURCE_COL_QUEENS][SOURCE_ROW_BLACK_NOT_PAWNS] = new Queen(Color.BLACK, posBQueen, this);
-        board[SOURCE_COL_QUEENS][SOURCE_ROW_WHITE_NOT_PAWNS] = new Queen(Color.WHITE, posWQueen, this);
+        Position posBQueen = new Position(POSITION_ZERO, POSITION_THREE);
+        Position posWQueen = new Position(POSITION_SEVEN, POSITION_THREE);
+        board[POSITION_ZERO][POSITION_THREE] = new Queen(Color.BLACK, posBQueen, this);
+        board[POSITION_SEVEN][POSITION_THREE] = new Queen(Color.WHITE, posWQueen, this);
     }
 
     private void createKings() {
-        Position posBKing = new Position(SOURCE_COL_KINGS, SOURCE_ROW_BLACK_NOT_PAWNS);
-        Position posWKing = new Position(SOURCE_COL_KINGS, SOURCE_ROW_WHITE_NOT_PAWNS);
-        board[SOURCE_COL_KINGS][SOURCE_ROW_BLACK_NOT_PAWNS] = new King(Color.BLACK, posBKing);
-        board[SOURCE_COL_KINGS][SOURCE_ROW_WHITE_NOT_PAWNS] = new King(Color.WHITE, posWKing);
+        Position posBKing = new Position(POSITION_ZERO, POSITION_FOUR);
+        Position posWKing = new Position(POSITION_SEVEN, POSITION_FOUR);
+        board[POSITION_ZERO][POSITION_FOUR] = new King(Color.BLACK, posBKing);
+        board[POSITION_SEVEN][POSITION_FOUR] = new King(Color.WHITE, posWKing);
     }
 }
